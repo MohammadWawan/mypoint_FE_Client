@@ -1,0 +1,1129 @@
+{
+  "openapi" : "3.0.2",
+  "info" : {
+    "title" : "MyPoint",
+    "description" : "MyPoin is an application website used by cellphone retail agents from the GoPhone company, where the retailer sells various brands of cellphones. Every product sale, agents can get points according to the products they sell. agents can redeem these points with available prizes.",
+    "termsOfService" : "http://swagger.io/terms/",
+    "contact" : {
+      "email" : "mohammadwawan.24@gmail.com"
+    },
+    "version" : "1.0"
+  },
+  "externalDocs" : {
+    "description" : ":Find out more about Swagger",
+    "url" : "http://swagger.io"
+  },
+  "servers" : [ {
+    "url" : "https://virtserver.swaggerhub.com/wan_team/Mypoint_API/1.0",
+    "description" : "SwaggerHub API Auto Mocking"
+  }, {
+    "url" : "https://api.server.test/v1",
+    "description" : "SwaggerHub API Auto Mocking"
+  }, {
+    "url" : "http://localhost:8000/"
+  } ],
+  "tags" : [ {
+    "name" : "agents",
+    "description" : "Everything about agents"
+  }, {
+    "name" : "admin",
+    "description" : "Everything about admin"
+  }, {
+    "name" : "product",
+    "description" : "Everything about products for sale"
+  }, {
+    "name" : "rewards",
+    "description" : "Everything about the rewards that will be redeemed by the agent"
+  }, {
+    "name" : "transactions",
+    "description" : "Everything about exchange points with available prizes"
+  }, {
+    "name" : "reward_histories",
+    "description" : "Everything about the history of rewards"
+  } ],
+  "paths" : {
+    "/product" : {
+      "get" : {
+        "tags" : [ "product" ],
+        "summary" : "List all products",
+        "parameters" : [ {
+          "name" : "sort",
+          "in" : "query",
+          "description" : "Sort salaries asc/desc",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "asc", "desc" ]
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Limit product result",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "Offset product result",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "405" : {
+            "description" : "Invalid input"
+          },
+          "200" : {
+            "description" : "Success"
+          }
+        },
+        "security" : [ {
+          "api_key" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "product" ],
+        "summary" : "Create new product",
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/Product"
+        },
+        "responses" : {
+          "405" : {
+            "description" : "Invalid input"
+          },
+          "200" : {
+            "description" : "Success"
+          }
+        },
+        "security" : [ {
+          "api_key" : [ ]
+        } ]
+      }
+    },
+    "/product/{id}" : {
+      "get" : {
+        "tags" : [ "product" ],
+        "summary" : "Detail product",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "ID of product to return",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "405" : {
+            "description" : "Invalid input"
+          },
+          "200" : {
+            "description" : "Success"
+          }
+        },
+        "security" : [ {
+          "api_key" : [ ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "product" ],
+        "summary" : "Update book data",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "ID of book to return",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/Product"
+        },
+        "responses" : {
+          "405" : {
+            "description" : "Invalid input"
+          },
+          "200" : {
+            "description" : "Success"
+          }
+        },
+        "security" : [ {
+          "api_key" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "product" ],
+        "summary" : "Delete book by id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "ID of book to return",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "405" : {
+            "description" : "Invalid input"
+          },
+          "200" : {
+            "description" : "Success"
+          }
+        },
+        "security" : [ {
+          "api_key" : [ ]
+        } ]
+      }
+    },
+    "/agents" : {
+      "get" : {
+        "tags" : [ "agents" ],
+        "summary" : "List all agents",
+        "parameters" : [ {
+          "name" : "sort",
+          "in" : "query",
+          "description" : "Sort agents asc/desc",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "asc", "desc" ]
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Limit agents result",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "Offset agents result",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "405" : {
+            "description" : "Invalid input"
+          },
+          "200" : {
+            "description" : "Success"
+          }
+        },
+        "security" : [ {
+          "api_key" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "agents" ],
+        "summary" : "Confirm for sale",
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/Agent"
+        },
+        "responses" : {
+          "405" : {
+            "description" : "Invalid input"
+          },
+          "200" : {
+            "description" : "Success"
+          }
+        },
+        "security" : [ {
+          "api_key" : [ ]
+        } ]
+      }
+    },
+    "/agents/{id}" : {
+      "get" : {
+        "tags" : [ "agents" ],
+        "summary" : "Detail agent by id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "ID of agent to return",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "405" : {
+            "description" : "Invalid input"
+          },
+          "200" : {
+            "description" : "Success"
+          }
+        },
+        "security" : [ {
+          "api_key" : [ ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "agents" ],
+        "summary" : "Update agent data",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "ID of agent to return",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/Agent"
+        },
+        "responses" : {
+          "405" : {
+            "description" : "Invalid input"
+          },
+          "200" : {
+            "description" : "Success"
+          }
+        },
+        "security" : [ {
+          "api_key" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "agents" ],
+        "summary" : "Destroy agent by id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "ID of agent to return",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "405" : {
+            "description" : "Invalid input"
+          },
+          "200" : {
+            "description" : "Success"
+          }
+        },
+        "security" : [ {
+          "api_key" : [ ]
+        } ]
+      }
+    },
+    "/rewards" : {
+      "get" : {
+        "tags" : [ "rewards" ],
+        "summary" : "List all rewards",
+        "parameters" : [ {
+          "name" : "sort",
+          "in" : "query",
+          "description" : "Sort rewards asc/desc",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "asc", "desc" ]
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Limit rewards result",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "Offset rewards result",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "405" : {
+            "description" : "Invalid input"
+          },
+          "200" : {
+            "description" : "Success"
+          }
+        },
+        "security" : [ {
+          "api_key" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "rewards" ],
+        "summary" : "Create new reward",
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/Reward"
+        },
+        "responses" : {
+          "405" : {
+            "description" : "Invalid input"
+          },
+          "200" : {
+            "description" : "Success"
+          }
+        },
+        "security" : [ {
+          "api_key" : [ ]
+        } ]
+      }
+    },
+    "/rewards/{id}" : {
+      "get" : {
+        "tags" : [ "rewards" ],
+        "summary" : "Detail reward by id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "ID of reward to return",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "405" : {
+            "description" : "Invalid input"
+          },
+          "200" : {
+            "description" : "Success"
+          }
+        },
+        "security" : [ {
+          "api_key" : [ ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "rewards" ],
+        "summary" : "Update reward data",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "ID of reward to return",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/Reward"
+        },
+        "responses" : {
+          "405" : {
+            "description" : "Invalid input"
+          },
+          "200" : {
+            "description" : "Success"
+          }
+        },
+        "security" : [ {
+          "api_key" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "rewards" ],
+        "summary" : "Destroy reward by id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "ID of reward to return",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "405" : {
+            "description" : "Invalid input"
+          },
+          "200" : {
+            "description" : "Success"
+          }
+        },
+        "security" : [ {
+          "api_key" : [ ]
+        } ]
+      }
+    },
+    "/admin" : {
+      "get" : {
+        "tags" : [ "admin" ],
+        "summary" : "Descriptions of admin",
+        "parameters" : [ {
+          "name" : "sort",
+          "in" : "query",
+          "description" : "Sort descriptions asc/desc",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "asc", "desc" ]
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Limit descriptions result",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "Offset descriptions result",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "405" : {
+            "description" : "Invalid input"
+          },
+          "200" : {
+            "description" : "Success"
+          }
+        },
+        "security" : [ {
+          "api_key" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "admin" ],
+        "summary" : "add product",
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/Admin"
+        },
+        "responses" : {
+          "405" : {
+            "description" : "Invalid input"
+          },
+          "200" : {
+            "description" : "Success"
+          }
+        },
+        "security" : [ {
+          "api_key" : [ ]
+        } ]
+      }
+    },
+    "/transactions" : {
+      "get" : {
+        "tags" : [ "transactions" ],
+        "summary" : "List all transactions",
+        "parameters" : [ {
+          "name" : "sort",
+          "in" : "query",
+          "description" : "Sort transactions asc/desc",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "asc", "desc" ]
+          }
+        }, {
+          "name" : "sortBy",
+          "in" : "query",
+          "description" : "Sort by transactions",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "name", "nominal", "target_date", "priority", "is_done" ]
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Limit transactions result",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "Offset transactions result",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "405" : {
+            "description" : "Invalid input"
+          },
+          "200" : {
+            "description" : "Success"
+          }
+        },
+        "security" : [ {
+          "api_key" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "transactions" ],
+        "summary" : "Create new transactions",
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/Transaction"
+        },
+        "responses" : {
+          "405" : {
+            "description" : "Invalid input"
+          },
+          "200" : {
+            "description" : "Success"
+          }
+        },
+        "security" : [ {
+          "api_key" : [ ]
+        } ]
+      }
+    },
+    "/transactions/{id}" : {
+      "get" : {
+        "tags" : [ "transactions" ],
+        "summary" : "Detail transactions",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "ID of transaction to return",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "405" : {
+            "description" : "Invalid input"
+          },
+          "200" : {
+            "description" : "Success"
+          }
+        },
+        "security" : [ {
+          "api_key" : [ ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "transactions" ],
+        "summary" : "Update transaction data",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "ID of transaction to return",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/Transaction"
+        },
+        "responses" : {
+          "405" : {
+            "description" : "Invalid input"
+          },
+          "200" : {
+            "description" : "Success"
+          }
+        },
+        "security" : [ {
+          "api_key" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "transactions" ],
+        "summary" : "Destroy transaction by id",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "ID of transaction to return",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "405" : {
+            "description" : "Invalid input"
+          },
+          "200" : {
+            "description" : "Success"
+          }
+        },
+        "security" : [ {
+          "api_key" : [ ]
+        } ]
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Agent" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "admin_id" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "email" : {
+            "type" : "string"
+          },
+          "password" : {
+            "type" : "string"
+          },
+          "points" : {
+            "type" : "integer"
+          },
+          "create_at" : {
+            "type" : "string"
+          },
+          "update_at" : {
+            "type" : "string"
+          }
+        },
+        "xml" : {
+          "name" : "Agent"
+        }
+      },
+      "Reward" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "title" : {
+            "type" : "string"
+          },
+          "value" : {
+            "type" : "integer"
+          },
+          "points" : {
+            "type" : "integer"
+          },
+          "qty" : {
+            "type" : "integer"
+          },
+          "create_at" : {
+            "type" : "string"
+          },
+          "update_at" : {
+            "type" : "string"
+          }
+        },
+        "xml" : {
+          "name" : "Reward"
+        }
+      },
+      "Admin" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "email" : {
+            "type" : "string"
+          },
+          "password" : {
+            "type" : "string"
+          },
+          "create_at" : {
+            "type" : "string"
+          },
+          "update_at" : {
+            "type" : "string"
+          }
+        },
+        "xml" : {
+          "name" : "Admin"
+        }
+      },
+      "RefreshToken" : {
+        "type" : "object",
+        "properties" : {
+          "api_key" : {
+            "type" : "string"
+          }
+        },
+        "xml" : {
+          "name" : "RefeshToken"
+        }
+      },
+      "Product" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "title" : {
+            "type" : "string"
+          },
+          "price" : {
+            "type" : "integer"
+          },
+          "author" : {
+            "type" : "string"
+          },
+          "publisher" : {
+            "type" : "string"
+          }
+        },
+        "xml" : {
+          "name" : "Book"
+        }
+      },
+      "Payment_method" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "type" : {
+            "type" : "string"
+          }
+        },
+        "xml" : {
+          "name" : "Payment_method"
+        }
+      },
+      "Tag" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "name" : {
+            "type" : "string"
+          }
+        },
+        "xml" : {
+          "name" : "Tag"
+        }
+      },
+      "Transasction_details" : {
+        "required" : [ "price", "qty", "title" ],
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "category" : {
+            "$ref" : "#/components/schemas/Reward"
+          },
+          "title" : {
+            "type" : "string",
+            "example" : "java itu mudah"
+          },
+          "qty" : {
+            "type" : "integer",
+            "example" : 1
+          },
+          "price" : {
+            "type" : "integer",
+            "example" : 100000
+          },
+          "tags" : {
+            "type" : "array",
+            "xml" : {
+              "name" : "tag",
+              "wrapped" : true
+            },
+            "items" : {
+              "$ref" : "#/components/schemas/Tag"
+            }
+          }
+        },
+        "xml" : {
+          "name" : "Transaction_Detail"
+        }
+      },
+      "Transasction" : {
+        "required" : [ "name", "payment_method", "total_price", "total_qty" ],
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "name" : {
+            "type" : "string",
+            "example" : "wawan"
+          },
+          "payment_method" : {
+            "type" : "string",
+            "example" : "Debit BRI (1247 0100 5834 534)"
+          },
+          "total_qty" : {
+            "type" : "integer",
+            "example" : 1
+          },
+          "total_price" : {
+            "type" : "integer",
+            "example" : 100000
+          },
+          "status" : {
+            "type" : "string",
+            "description" : "book status in the store",
+            "enum" : [ "available", "pending", "sold" ]
+          }
+        },
+        "xml" : {
+          "name" : "Transaction"
+        }
+      }
+    },
+    "requestBodies" : {
+      "Agent" : {
+        "description" : "User object that needs to be added to the store",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Transasction_details"
+            }
+          },
+          "application/xml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Transasction_details"
+            }
+          }
+        },
+        "required" : true
+      },
+      "Transaction_Detail" : {
+        "description" : "Transaction_Detail object that needs to be added to the store",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Transasction_details"
+            }
+          },
+          "application/xml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Transasction_details"
+            }
+          }
+        },
+        "required" : true
+      },
+      "Transaction" : {
+        "description" : "Transaction object that needs to be added to the store, for buys books",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Transasction"
+            }
+          },
+          "application/xml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Transasction"
+            }
+          }
+        },
+        "required" : true
+      },
+      "RefreshToken" : {
+        "description" : "RefeshToken object that needs to be refresh the token",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/RefreshToken"
+            }
+          },
+          "application/xml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/RefreshToken"
+            }
+          }
+        },
+        "required" : true
+      },
+      "Product" : {
+        "description" : "product object that needs to be added to the store",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Product"
+            }
+          },
+          "application/xml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Product"
+            }
+          }
+        },
+        "required" : true
+      },
+      "Payment_method" : {
+        "description" : "payment_method object that needs to be added to the store",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Payment_method"
+            }
+          },
+          "application/xml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Payment_method"
+            }
+          }
+        },
+        "required" : true
+      },
+      "Reward" : {
+        "description" : "category object that needs to be added to the store",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Reward"
+            }
+          },
+          "application/xml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Reward"
+            }
+          }
+        },
+        "required" : true
+      },
+      "Admin" : {
+        "description" : "admin is owner of various agents",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Admin"
+            }
+          },
+          "application/xml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Admin"
+            }
+          }
+        },
+        "required" : true
+      },
+      "UserArray" : {
+        "description" : "List of agent object",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/Agent"
+              }
+            }
+          }
+        },
+        "required" : true
+      }
+    },
+    "securitySchemes" : {
+      "api_key" : {
+        "type" : "apiKey",
+        "name" : "api_key",
+        "in" : "header"
+      }
+    }
+  }
+}
